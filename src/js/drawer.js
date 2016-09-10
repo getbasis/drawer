@@ -42,10 +42,11 @@ export default class BasisDrawer {
 
       const hasSubMenu = drawer.find('[aria-expanded]');
       hasSubMenu.each((i, e) => {
-        const toggleSubmenu = $(e).find(this.params.toggleSubmenu);
+        const target = $(e);
+        const toggleSubmenu = $(e).children(this.params.toggleSubmenu);
         if (toggleSubmenu.length) {
           toggleSubmenu.on('click', (event) => {
-            this.toggle($(e));
+            this.toggle(target);
             event.stopPropagation();
           });
         }
