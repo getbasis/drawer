@@ -30,6 +30,7 @@ export default class BasisDrawer {
       });
 
       btn.on('click', (event) => {
+        event.preventDefault();
         this.toggle(drawer);
         btn.toggleClass('is-close');
         event.stopPropagation();
@@ -46,8 +47,9 @@ export default class BasisDrawer {
         const toggleSubmenu = $(e).children(this.params.toggleSubmenu);
         if (toggleSubmenu.length) {
           toggleSubmenu.on('click', (event) => {
-            this.toggle(target);
+            event.preventDefault();
             event.stopPropagation();
+            this.toggle(target);
           });
         }
       });
@@ -55,7 +57,6 @@ export default class BasisDrawer {
   }
 
   toggle(drawer) {
-    event.preventDefault();
     if (drawer.attr('aria-expanded') === 'false') {
       this.open(drawer);
     } else {

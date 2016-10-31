@@ -33,10 +33,9 @@ bs-drawer-z-index          ?= 10;
     position: absolute;
     z-index: bs-drawer-z-index;
     top: 0;
-    left: 0;
+    left: -100%;
     bottom: 0;
-    transform: translateX(-100%);
-    transition: transform bs-transition-duration bs-transition-function-timing;
+    transition: left bs-transition-duration bs-transition-function-timing;
     width: bs-drawer-width;
     max-width: bs-drawer-max-width;
     background-color: bs-drawer-background-color;
@@ -47,7 +46,7 @@ bs-drawer-z-index          ?= 10;
     }
 
     &[aria-expanded="true"] {
-      transform: translateX(0);
+      left: 0;
     }
   }
 
