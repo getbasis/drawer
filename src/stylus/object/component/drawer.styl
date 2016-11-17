@@ -3,16 +3,16 @@ bs-drawer-max-width        ?= 80%;
 bs-drawer-background-color ?= bs-light(bs-color-black);
 bs-drawer-z-index          ?= 10;
 
-[data-bs-component~="drawer-btn"] {
+[data-c="drawer-btn"] {
   position: relative;
   z-index: (bs-drawer-z-index + 1);
 }
 
-[data-bs-component~="drawer"] {
+[data-c="drawer"] {
   position: relative;
 }
 
-[data-bs-component="drawer__body"] {
+[data-c="drawer__body"] {
   position: absolute;
   z-index: bs-drawer-z-index;
   top: 0;
@@ -29,7 +29,7 @@ bs-drawer-z-index          ?= 10;
   }
 }
 
-[data-bs-component="drawer__submenu"] {
+[data-c="drawer__submenu"] {
   height: 0;
   overflow: hidden;
 
@@ -39,6 +39,14 @@ bs-drawer-z-index          ?= 10;
   }
 }
 
-[data-bs-component="drawer__toggle"] {
+[data-c="drawer__toggle"] {
   cursor: pointer;
+}
+
+.{bs-prefix}c-drawer {
+  &__body {
+    &--fixed {
+      position: fixed;
+    }
+  }
 }

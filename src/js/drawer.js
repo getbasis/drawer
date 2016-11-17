@@ -9,17 +9,17 @@ export default class BasisDrawer {
   }
 
   setListener() {
-    const btns = $('[data-bs-component~="drawer-btn"][aria-controls]');
+    const btns = $('[data-c="drawer-btn"][aria-controls]');
     btns.each((i, e) => {
-      const btn    = $(e);
-      const drawer = $(btn.attr('aria-controls'));
-      const container = drawer.parent('[data-bs-component~="drawer"]');
+      const btn       = $(e);
+      const drawer    = $(btn.attr('aria-controls'));
+      const container = drawer.parent('[data-c="drawer"]');
 
       container.on('click', (event) => {
         this.close(btn);
         this.hidden(drawer);
-        this.close(drawer.find('[data-bs-component="drawer__toggle"]'));
-        this.hidden(drawer.find('[data-bs-component="drawer__submenu"]'));
+        this.close(drawer.find('[data-c="drawer__toggle"]'));
+        this.hidden(drawer.find('[data-c="drawer__submenu"]'));
       });
 
       drawer.on('click', (event) => {
@@ -37,7 +37,7 @@ export default class BasisDrawer {
         this.close(btn);
       });
 
-      const toggleBtns = $('[data-bs-component="drawer__toggle"][aria-controls]');
+      const toggleBtns = $('[data-c="drawer__toggle"][aria-controls]');
       toggleBtns.each((i, e) => {
         const toggleBtn = $(e);
         const submenu   = $(toggleBtn.attr('aria-controls'));
@@ -58,8 +58,8 @@ export default class BasisDrawer {
     } else {
       this.close(btn);
       this.hidden(menu);
-      this.close(menu.find('[data-bs-component="drawer__toggle"]'));
-      this.hidden(menu.find('[data-bs-component="drawer__submenu"]'));
+      this.close(menu.find('[data-c="drawer__toggle"]'));
+      this.hidden(menu.find('[data-c="drawer__submenu"]'));
     }
   }
 
@@ -80,12 +80,12 @@ export default class BasisDrawer {
   }
 
   setIdForSubmenu() {
-    $('[data-bs-component="drawer__submenu"][aria-hidden]').each((i, e) => {
+    $('[data-c="drawer__submenu"][aria-hidden]').each((i, e) => {
       const random    = Math.floor((Math.random() * (9999999 - 1000000)) + 1000000);
       const time      = new Date().getTime();
       const id        = `drawer-${time}${random}`;
       const submenu   = $(e);
-      const toggleBtn = submenu.siblings('[data-bs-component="drawer__toggle"]');
+      const toggleBtn = submenu.siblings('[data-c="drawer__toggle"]');
       if (submenu.length && toggleBtn.length) {
         submenu.attr('id', id);
         toggleBtn.attr('aria-controls', `#${id}`);

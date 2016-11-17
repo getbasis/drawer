@@ -23,29 +23,31 @@ $ npm install getbasis-drawer
 ```
 import $ from 'jquery';
 import BasisDrawer from 'node_modules/getbasis-drawer/src/js/drawer.js';
+new BasisDrawer();
 ```
 
 ### HTML
-[data-bs-component="drawer__body"] must be right under [data-bs-component="drawer"]
+[data-c="drawer__body"] must be right under [data-c="drawer"]
 
 ```
-<body data-bs-component="drawer">
-  <nav id="drawer" data-bs-component="drawer__body" role="navigation" aria-hidden="true">
-    <ul data-bs-component="drawer__menu">
-      <li data-bs-component="drawer__item"><a href="#">menu</a></li>
-      <li data-bs-component="drawer__item"><a href="#">menu</a></li>
-      <li data-bs-component="drawer__item">
+<div class="_c-drawer" data-c="drawer">
+  <nav id="drawer" class="_c-drawer__body" data-c="drawer__body" role="navigation" aria-hidden="true">
+    <ul>
+      <li class="_c-drawer__item"><a href="#">menu</a></li>
+      <li class="_c-drawer__item"><a href="#">menu</a></li>
+      <li class="_c-drawer__item">
         <a href="#">menu</a>
-        <div data-bs-component="drawer__toggle" aria-expanded="false" aria-controls="drawer-submenu">&gt;</div>
-        <ul id="drawer-submenu" data-bs-component="drawer__submenu" aria-hidden="true">
-          <li data-bs-component="drawer__subitem"><a href="#">submenu</a></li>
-          <li data-bs-component="drawer__subitem"><a href="#">submenu</a></li>
+        <div class="_c-drawer__toggle" data-c="drawer__toggle" aria-expanded="false" aria-controls="drawer-submenu">&gt;</div>
+        <ul id="drawer-submenu" class="_c-drawer__submenu" data-c="drawer__submenu" aria-hidden="true">
+          <li class="_c-drawer__subitem"><a href="#">submenu</a></li>
+          <li class="_c-drawer__subitem"><a href="#">submenu</a></li>
         </ul>
       </li>
     </ul>
   </nav>
-  <div class="_c-hamburger-btn" data-bs-component="drawer-btn" aria-expanded="false" aria-controls="drawer"></div>
-</body>
+</div>
+
+<div class="_c-hamburger-btn" data-c="drawer-btn" aria-expanded="false" aria-controls="drawer"></div>
 ```
 
 ## Browser support
