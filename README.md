@@ -6,12 +6,47 @@ This is a css module for the Basis.
 * Documents : http://getbasis.github.io/
 
 ## Get Started
-1. `$ npm install getbasis`
-1. `$ npm install getbasis-drawer`
-1. `@import 'node_modules/getbasis-drawer/src/stylus/basis';`
-1. `@import 'node_modules/getbasis-drawer/src/stylus/object/component/drawer';`
-1. `import $ from 'jquery';`
-1. `import BasisDrawer from 'node_modules/getbasis-drawer/src/js/drawer.js';`
+
+### Install
+```
+$ npm install getbasis
+$ npm install getbasis-drawer
+```
+
+### Stylus
+```
+@import 'node_modules/getbasis-drawer/src/stylus/basis';
+@import 'node_modules/getbasis-drawer/src/stylus/object/component/drawer';
+```
+
+### Javascript
+```
+import $ from 'jquery';
+import BasisDrawer from 'node_modules/getbasis-drawer/src/js/drawer.js';
+```
+
+### HTML
+[data-bs-component="drawer__body"] must be right under [data-bs-component="drawer"]
+
+```
+<body data-bs-component="drawer">
+  <nav id="drawer" data-bs-component="drawer__body" role="navigation" aria-hidden="true">
+    <ul data-bs-component="drawer__menu">
+      <li data-bs-component="drawer__item"><a href="#">menu</a></li>
+      <li data-bs-component="drawer__item"><a href="#">menu</a></li>
+      <li data-bs-component="drawer__item">
+        <a href="#">menu</a>
+        <div data-bs-component="drawer__toggle" aria-expanded="false" aria-controls="drawer-submenu">&gt;</div>
+        <ul id="drawer-submenu" data-bs-component="drawer__submenu" aria-hidden="true">
+          <li data-bs-component="drawer__subitem"><a href="#">submenu</a></li>
+          <li data-bs-component="drawer__subitem"><a href="#">submenu</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <div class="_c-hamburger-btn" data-bs-component="drawer-btn" aria-expanded="false" aria-controls="drawer"></div>
+</body>
+```
 
 ## Browser support
 Modern Browser and IE10+

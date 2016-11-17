@@ -3,26 +3,23 @@
 import $ from 'jquery';
 
 export default class BasisDrawer {
-  constructor(params) {
-    this.params = $.extend({
-      container    : '._c-drawer',
-      drawer       : '._c-drawer__body',
-      btn          : '._c-drawer__btn',
-      toggleSubmenu: '._c-drawer__toggle'
-    }, params);
-    this.container = $(this.params.container);
+  constructor() {
+    this.setIdForSubmenu();
     this.setListener();
   }
 
   setListener() {
-    this.container.each((i, e) => {
-      const container = $(e);
-      const drawer    = container.find(this.params.drawer).eq(0);
-      const btn       = container.find(this.params.btn).eq(0);
+    const btns = $('[data-bs-component~="drawer-btn"][aria-controls]');
+    btns.each((i, e) => {
+      const btn    = $(e);
+      const drawer = $(btn.attr('aria-controls'));
+      const container = drawer.parent('[data-bs-component~="drawer"]');
 
       container.on('click', (event) => {
-        this.close(drawer);
-        btn.removeClass('is-close');
+        this.close(btn);
+        this.hidden(drawer);
+        this.close(drawer.find('[data-bs-component="drawer__toggle"]'));
+        this.hidden(drawer.find('[data-bs-component="drawer__submenu"]'));
       });
 
       drawer.on('click', (event) => {
@@ -31,48 +28,68 @@ export default class BasisDrawer {
 
       btn.on('click', (event) => {
         event.preventDefault();
-        this.toggle(drawer);
-        btn.toggleClass('is-close');
+        this.toggleMenu(btn);
         event.stopPropagation();
       });
 
       $(window).on('resize', (event) => {
-        this.close(drawer);
-        btn.removeClass('is-close');
+        this.hidden(drawer);
+        this.close(btn);
       });
 
-      const hasSubMenu = drawer.find('[aria-expanded]');
-      hasSubMenu.each((i, e) => {
-        const target = $(e);
-        const toggleSubmenu = $(e).children(this.params.toggleSubmenu);
-        if (toggleSubmenu.length) {
-          toggleSubmenu.on('click', (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            this.toggle(target);
-          });
-        }
+      const toggleBtns = $('[data-bs-component="drawer__toggle"][aria-controls]');
+      toggleBtns.each((i, e) => {
+        const toggleBtn = $(e);
+        const submenu   = $(toggleBtn.attr('aria-controls'));
+        toggleBtn.on('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          this.toggleMenu(toggleBtn);
+        });
       });
     });
   }
 
-  toggle(drawer) {
-    if (drawer.attr('aria-expanded') === 'false') {
-      this.open(drawer);
+  toggleMenu(btn) {
+    const menu = $(btn.attr('aria-controls'));
+    if ('false' == btn.attr('aria-expanded')) {
+      this.open(btn);
+      this.show(menu);
     } else {
-      this.close(drawer);
+      this.close(btn);
+      this.hidden(menu);
+      this.close(menu.find('[data-bs-component="drawer__toggle"]'));
+      this.hidden(menu.find('[data-bs-component="drawer__submenu"]'));
     }
   }
 
-  open(drawer) {
-    drawer.attr('aria-expanded', 'true');
+  open(target) {
+    target.attr('aria-expanded', 'true');
   }
 
-  close(drawer) {
-    drawer.attr('aria-expanded', 'false');
-    const hasSubitems = drawer.find('[aria-expanded]');
-    hasSubitems.each((i, e) => {
-      this.close($(e));
+  close(target) {
+    target.attr('aria-expanded', 'false');
+  }
+
+  show(target) {
+    target.attr('aria-hidden', 'false');
+  }
+
+  hidden(target) {
+    target.attr('aria-hidden', 'true');
+  }
+
+  setIdForSubmenu() {
+    $('[data-bs-component="drawer__submenu"][aria-hidden]').each((i, e) => {
+      const random    = Math.floor((Math.random() * (9999999 - 1000000)) + 1000000);
+      const time      = new Date().getTime();
+      const id        = `drawer-${time}${random}`;
+      const submenu   = $(e);
+      const toggleBtn = submenu.siblings('[data-bs-component="drawer__toggle"]');
+      if (submenu.length && toggleBtn.length) {
+        submenu.attr('id', id);
+        toggleBtn.attr('aria-controls', `#${id}`);
+      }
     });
   }
 }
